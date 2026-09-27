@@ -1,30 +1,30 @@
-# مراجعة العقود التجارية
+# Commercial Contract Review
 
-مشروع Python أولي لمراجعة العقود. إعداد الحزم وتعريف متطلبات المشروع موجودان في `pyproject.toml`، ومصدر الحزمة داخل `src/application_contract_erview`.
+An early-stage Python project for reviewing commercial contracts. Project setup and dependencies are defined in `pyproject.toml`, and the package source is under `src/application_contract_erview`.
 
-> اتبع الخطوات في طرفية **WSL / Ubuntu**. بيئة `.venv` التي قد تكون موجودة على Windows منفصلة عن بيئة WSL ولا تستخدمها هذه الخطوات.
+> Run these steps in a **WSL / Ubuntu terminal**. A `.venv` created on Windows is separate from the WSL environment and is not used by these steps.
 
-## المتطلبات
+## Prerequisites
 
-- Windows مع WSL2 وتوزيعة Ubuntu.
-- اتصال بالإنترنت.
-- مساحة كافية لتنزيل Miniconda واعتماديات Python.
+- Windows with WSL2 and an Ubuntu distribution.
+- An internet connection.
+- Enough disk space to download Miniconda and Python dependencies.
 
-المشروع يتطلب **Python 3.14 أو أحدث**، حسب `pyproject.toml` وملف `.python-version`.
+The project requires **Python 3.14 or newer**, as specified in `pyproject.toml` and `.python-version`.
 
-## 1. افتح المشروع في WSL
+## 1. Open the project in WSL
 
-افتح طرفية Ubuntu/WSL ثم انتقل إلى مجلد المشروع:
+Open an Ubuntu/WSL terminal and go to the project directory:
 
 ```bash
 cd /mnt/d/APPLICATION_CONTRACT_REVIEW
 ```
 
-إذا لم يكن هذا هو مسار المشروع عندك، استبدله بالمسار الصحيح داخل WSL. قرص `D:` يظهر عادة تحت `/mnt/d`.
+If your project is in a different location, replace this with its path inside WSL. The Windows `D:` drive is usually mounted at `/mnt/d`.
 
-## 2. ثبّت Miniconda داخل WSL
+## 2. Install Miniconda in WSL
 
-نفّذ هذه الأوامر في طرفية WSL، وليس PowerShell. الأوامر تنزّل ملف التثبيت إلى مجلد المنزل، ثم تشغّله وتحذفه بعد اكتمال التثبيت:
+Run these commands in a WSL terminal, not PowerShell. They download the installer to your home directory, run it, and remove the installer after setup:
 
 ```bash
 mkdir -p ~/miniconda3
@@ -34,30 +34,30 @@ rm ~/miniconda.sh
 ~/miniconda3/bin/conda init bash
 ```
 
-أغلق طرفية WSL وافتحها من جديد، أو حمّل إعداد Bash في الطرفية الحالية:
+Close and reopen the WSL terminal, or reload the Bash configuration in the current terminal:
 
 ```bash
 source ~/.bashrc
 ```
 
-تأكد أن Conda أصبح متاحًا:
+Confirm that Conda is available:
 
 ```bash
 conda --version
 ```
 
-إذا ظهرت `conda: command not found`، شغّل `~/miniconda3/bin/conda init bash` ثم أغلق الطرفية وافتحها من جديد.
+If you see `conda: command not found`, run `~/miniconda3/bin/conda init bash`, then close and reopen the terminal.
 
-## 3. أنشئ بيئة المشروع
+## 3. Create the project environment
 
-من مجلد المشروع، أنشئ بيئة باسم `review_contract` مع Python 3.14 و`uv`:
+From the project directory, create a Conda environment named `review_contract` with Python 3.14 and `uv`:
 
 ```bash
 conda create -n review_contract -c conda-forge python=3.14 pip uv -y
 conda activate review_contract
 ```
 
-تحقق أن الطرفية تستخدم Python الموجود في بيئة Conda:
+Verify that the terminal is using Python from the Conda environment:
 
 ```bash
 python --version
@@ -65,78 +65,78 @@ which python
 uv --version
 ```
 
-يجب أن يعرض `python --version` الإصدار 3.14 أو أحدث، وأن يشير مسار `which python` إلى بيئة `review_contract` تحت `~/miniconda3/envs/`.
+`python --version` should report Python 3.14 or newer. The `which python` path should point to the `review_contract` environment under `~/miniconda3/envs/`.
 
-## 4. ثبّت المشروع واعتمادياته
+## 4. Install the project and its dependencies
 
-والبيئة `review_contract` مفعّلة، نفّذ من جذر المشروع:
+With `review_contract` activated, run this command from the project root:
 
 ```bash
 uv pip install -e .
 ```
 
-هذا يثبّت المشروع في وضع التطوير، ويقرأ الاعتماديات من `pyproject.toml`. لا تحتاج إلى تثبيت `requirements.txt` بالإضافة إليه؛ الملف الحالي لا يتضمن كل الاعتماديات المعرّفة للمشروع.
+This installs the project in editable mode and reads its dependencies from `pyproject.toml`. You do not need to install `requirements.txt` as well; the current file does not include all dependencies declared for the project.
 
-تحقق من التثبيت:
+Verify the installation:
 
 ```bash
 python -m pip list
 ```
 
-## 5. شغّل نقطة الدخول الحالية
+## 5. Run the current entry point
 
-المشروع حاليًا في مرحلة أولية؛ أمر التشغيل المعرّف في `pyproject.toml` يطبع رسالة تحقق بسيطة:
+The project is currently at an early stage. Its configured command prints a simple verification message:
 
 ```bash
 application-contract-erview
 ```
 
-المتوقع أن ترى:
+Expected output:
 
 ```text
 Hello from application-contract-erview!
 ```
 
-## 6. افتح المشروع في VS Code باستخدام WSL
+## 6. Open the project in VS Code using WSL
 
-من طرفية WSL داخل مجلد المشروع شغّل:
+From a WSL terminal in the project directory, run:
 
 ```bash
 code .
 ```
 
-في VS Code، اختر مفسّر Python الخاص ببيئة Conda `review_contract`. مساره المعتاد:
+In VS Code, select the Conda Python interpreter for `review_contract`. Its usual path is:
 
 ```text
-/home/<اسم-مستخدم-WSL>/miniconda3/envs/review_contract/bin/python
+/home/<your-wsl-username>/miniconda3/envs/review_contract/bin/python
 ```
 
-يمكنك معرفة المسار الدقيق بعد تفعيل البيئة عبر:
+To find the exact path after activating the environment, run:
 
 ```bash
 which python
 ```
 
-تأكد أن نافذة VS Code متصلة بـWSL؛ مفسّر Windows الموجود في `.venv` ليس هو مفسّر WSL.
+Make sure the VS Code window is connected to WSL. The Windows interpreter in `.venv` is not the WSL interpreter.
 
-## استخدام المشروع لاحقًا
+## Using the project later
 
-كل مرة تفتح فيها طرفية WSL جديدة:
+Whenever you open a new WSL terminal:
 
 ```bash
 cd /mnt/d/APPLICATION_CONTRACT_REVIEW
 conda activate review_contract
 ```
 
-للخروج من البيئة:
+To leave the environment:
 
 ```bash
 deactivate
 ```
 
-## مشاكل شائعة
+## Common issues
 
-- **`conda: command not found`:** نفّذ `~/miniconda3/bin/conda init bash`، ثم أعد فتح طرفية WSL.
-- **`pip: command not found` أو تثبيت الحزم يذكر `externally-managed-environment`:** تأكد أنك فعّلت `review_contract` وأن `which python` يشير إلى `~/miniconda3/envs/review_contract/`. لا تثبّت `python3-pip` عبر `apt` لهذا المشروع ولا تستخدم `--break-system-packages`.
-- **`uv: command not found`:** فعّل البيئة الصحيحة. إن لم يكن `uv` مثبتًا فيها، نفّذ `conda install -n review_contract -c conda-forge uv`.
-- **لا تظهر الحزم في VS Code:** اختر مفسّر Conda داخل جلسة WSL، وليس مفسّر Windows أو `.venv` الخاصة به.
+- **`conda: command not found`:** Run `~/miniconda3/bin/conda init bash`, then reopen the WSL terminal.
+- **`pip: command not found` or `externally-managed-environment`:** Make sure `review_contract` is activated and `which python` points to `~/miniconda3/envs/review_contract/`. Do not install `python3-pip` with `apt` for this project or use `--break-system-packages`.
+- **`uv: command not found`:** Activate the correct environment. If `uv` is not installed in it, run `conda install -n review_contract -c conda-forge uv`.
+- **VS Code cannot see the installed packages:** Select the Conda interpreter in the WSL session, not the Windows interpreter or its `.venv`.
