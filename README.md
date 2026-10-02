@@ -77,6 +77,29 @@ uv pip install -e .
 
 This installs the project in editable mode and reads its dependencies from `pyproject.toml`. You do not need to install `requirements.txt` as well; the current file does not include all dependencies declared for the project.
 
+### 4.1. How to add a new package with uv
+
+If you want to add a library to the project and keep it compatible with the versions declared in `pyproject.toml`, use `uv add` from the project root:
+
+```bash
+conda activate review_contract
+uv add package-name
+```
+
+This updates the project metadata and installs the package into the active environment.
+
+If you want to install dependencies from a `requirements.txt` file only into the current environment, use:
+
+```bash
+conda activate review_contract
+uv pip install -r requirements.txt
+```
+
+The difference is important:
+
+- `uv add package-name` -> updates the project dependency list in `pyproject.toml`
+- `uv pip install -r requirements.txt` -> installs the listed packages into the active environment only
+
 Verify the installation:
 
 ```bash
